@@ -68,8 +68,9 @@ async function updatePhoto() {
 
 }
 
-async function deletePhoto() {
-
+async function deletePhoto(deleteReq) {
+    const sql = `DELETE FROM photos WHERE id = ${deleteReq.id}`;
+    await pool.query(sql);
 }
 
 async function deletePhotosByTheme(id) {

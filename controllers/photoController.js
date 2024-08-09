@@ -28,7 +28,7 @@ async function addPhoto(req, res) {
         theme_id: theme_id
     };
     await db.addPhoto(photoObj);
-    res.redirect('/');
+    res.redirect(`/themes/${theme_id}`);
 }
 
 async function updatePhoto(req, res) {
@@ -36,7 +36,12 @@ async function updatePhoto(req, res) {
 }
 
 async function deletePhoto(req, res) {
-    await db.deletePhoto();
+    const theme_id = req.params.theme_id;
+    const deleteReq = {
+        id: req.params.photo_id
+    }
+    await db.deletePhoto(deleteReq);
+    res.redirect(`/themes/${theme_id}`);
 }
 
 async function deletePhotosByTheme(id) {

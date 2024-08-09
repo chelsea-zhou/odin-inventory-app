@@ -25,6 +25,8 @@ app.get("/themes/:theme_id", photoController.getPhotos);
 
 app.get("/themes/:theme_id/photos/:photo_id", photoController.getPhoto);
 
+app.get("/themes/:theme_id/photos/:photo_id/delete", photoController.deletePhoto);
+
 app.get("/themes/:theme_id/newPhoto", (req, res) => {
     res.render("newPhoto", {theme_id: req.params.theme_id})
 });
