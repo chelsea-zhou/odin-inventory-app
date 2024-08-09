@@ -1,10 +1,13 @@
 const express = require("express");
-const photoController = require("../controllers/photoController");
-const themeController = require("../controllers/themeController");
+const path = require('path');
+const photoController = require("./controllers/photoController");
+const themeController = require("./controllers/themeController");
 
 const app = express();
-
 app.set("view engine", "ejs");
+
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", themeController.getThemes);

@@ -1,15 +1,18 @@
 const db = require("../db/queries");
 
 async function getPhotos(req, res) {
-    const photos = await db.getPhotos();
-    res.send("photos" + photos.map((photo) => photo.title).join(","));
+    const theme_id = req.params.theme_id;
+    console.log(`params: ${JSON.stringify(req.params)}`);
+    const theme = await db.getTheme(theme_id);
+    const photos = await db.getPhotos(theme_id);
+    res.render("photos", {theme: theme, photos: photos});
 }
 
 async function getPhoto(req, res) {
     const photo_id = req.params.photo_id;
     console.log(`photo_id param is ${photo_id}`);
     const photo = await db.getPhoto(photo_id);
-    res.send("photo" + photo.title);
+    res.render("photoDetails", {photo: photo});
 }
 
 async function addPhoto(req, res) {

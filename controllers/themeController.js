@@ -2,7 +2,12 @@ const db = require("../db/queries");
 
 async function getThemes(req, res) {
     const themes = await db.getThemes();
-    res.send(`themes` + themes.map((theme) => theme.title).join(","));
+    res.render("themes", {themes: themes});
+}
+
+async function getTheme(req, res) {
+    const id = req.params.theme_id;
+    const theme = await db.getTheme(id);
 }
 
 async function createTheme(req, res) {
