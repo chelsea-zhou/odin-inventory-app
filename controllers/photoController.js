@@ -16,7 +16,19 @@ async function getPhoto(req, res) {
 }
 
 async function addPhoto(req, res) {
-    await db.addPhoto();
+    const theme_id = req.params.theme_id;
+    const body = req.body;
+    console.log(`post request is ${JSON.stringify(body)}`);
+    const photoObj = {
+        title: body.image_title,
+        description: body.image_description,
+        location: body.image_location,
+        date: body.image_date,
+        image: body.image,
+        theme_id: theme_id
+    };
+    await db.addPhoto(photoObj);
+    res.redirect('/');
 }
 
 async function updatePhoto(req, res) {
@@ -25,6 +37,10 @@ async function updatePhoto(req, res) {
 
 async function deletePhoto(req, res) {
     await db.deletePhoto();
+}
+
+async function deletePhotosByTheme(id) {
+    await db.deletePhotosByTheme(id);
 }
 
 module.exports = {

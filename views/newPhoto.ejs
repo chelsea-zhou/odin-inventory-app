@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/themes/<%= theme_id %>/newPhoto" method="POST">
+
+        <label>cover image</label>
+        <input type="text" name="image">
+
+        <label> cover image title </label>
+        <input type="text" name="image_title">
+
+        <label> cover image  description</label>
+        <input type="text" name="image_description">
+
+        <label> cover image date </label>
+        <input type="datetime" name="image_date">
+
+        <label> location </label>
+        <input type="text" name="image_location">
+
+        <input type="submit">
+    </form>
+</body>
+</html>

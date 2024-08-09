@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1><%= theme.title %></h1>
+    <button onClick="location.href='/themes/<%= theme.id %>/newPhoto'">Add photo to theme</button>
     <div class="photos">
         <% photos.forEach((photo) => { %>
             <%- include("displayPhoto", {theme: theme, photo: photo}) %>

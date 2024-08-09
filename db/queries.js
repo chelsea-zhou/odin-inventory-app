@@ -12,16 +12,27 @@ async function getTheme(id) {
     }
 }
 
-async function createTheme() {
-
+async function createTheme(req) {
+    const {rows} = await pool.query(`
+        INSERT INTO themes (title, description, cover_image) 
+        VALUES ($1, $2, $3)
+        RETURNING id;
+        `, 
+        [req.title, req.description, req.cover_image]);
+    if (rows.length > 0 ) {
+        return rows[0].id
+    }
 }
 
-async function updateTheme() {
-
+async function updateTheme(id, theme) {
+    const sql = `UPDATE themes
+        SET title = ${theme.title}, description = ${theme.description}, cover_image = ${theme.cover_image}
+        WHERE id = ${id};`
 }
 
-async function deleteTheme() {
-
+async function deleteTheme(id) {
+    const sql = `DELETE FROM themes WHERE id = ${id};`
+    await pool.query(sql);
 }
 
 async function getPhotos(theme_id) {
@@ -39,8 +50,18 @@ async function getPhoto(id) {
     }
 }
 
-async function addPhoto() {
-
+async function addPhoto(obj) {
+    const sql = `
+    INSERT INTO photos (title, description, image, date, location, theme_id) 
+    VALUES ($1, $2, $3, $4, $5, $6)`;
+    await pool.query(sql, [
+        obj.title, 
+        obj.description, 
+        obj.image, 
+        obj.date, 
+        obj.location, 
+        obj.theme_id
+    ]);
 }
 
 async function updatePhoto() {
@@ -49,6 +70,12 @@ async function updatePhoto() {
 
 async function deletePhoto() {
 
+}
+
+async function deletePhotosByTheme(id) {
+    const sql = `DELETE FROM photos WHERE theme_id = ${id};
+    `
+    await pool.query(sql);
 }
 
 module.exports = {
@@ -61,5 +88,6 @@ module.exports = {
     getPhoto,
     addPhoto,
     updatePhoto,
-    deletePhoto
+    deletePhoto,
+    deletePhotosByTheme
 }

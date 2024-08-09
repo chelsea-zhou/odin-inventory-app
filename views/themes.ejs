@@ -10,12 +10,14 @@
 
     <div>
         <p> Memory Gallery</p>
+        <button onClick="location.href='/themes/new'"> add new theme </button>
         <div class="themes">
             <%  themes.forEach((theme) => { %>
-                <%- include('theme', {theme: theme}) %>
+                <%- include('theme', {theme: theme, helper: helper}) %>
             <% })%>
         </div>
     </div>
+
     
 </body>
 </html>
