@@ -34,8 +34,5 @@ app.post("/themes/:theme_id/newPhoto", photoController.addPhoto);
 
 app.put("/themes/:theme_id/photos/:photo_id", photoController.updatePhoto);
 
-app.delete("/themes/:theme_id/photos/:photo_id", photoController.deletePhoto);
-
-
 
 app.listen(3000);

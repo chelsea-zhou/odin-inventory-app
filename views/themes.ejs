@@ -13,7 +13,7 @@
         <button onClick="location.href='/themes/new'"> add new theme </button>
         <div class="themes">
             <%  themes.forEach((theme) => { %>
-                <%- include('theme', {theme: theme, helper: helper}) %>
+                <%- include('theme', {theme: theme}) %>
             <% })%>
         </div>
     </div>

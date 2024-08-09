@@ -1,9 +1,8 @@
 const db = require("../db/queries");
-const helper = require("./helper");
 
 async function getThemes(req, res) {
     const themes = await db.getThemes();
-    res.render("themes", {themes: themes, helper: helper});
+    res.render("themes", {themes: themes});
 }
 
 async function createTheme(req, res) {
