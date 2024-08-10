@@ -7,13 +7,16 @@
     <link rel="stylesheet" href="/style.css" type="text/css">
 </head>
 <body>
-    <h1><%= theme.title %></h1>
-    <button onClick="location.href='/themes/<%= theme.id %>/newPhoto'">Add photo to theme</button>
     <div class="photos">
-        <% photos.forEach((photo) => { %>
-            <%- include("displayPhoto", {theme: theme, photo: photo}) %>
-        <% }) %>
+        <p  class="heading"><%= theme.title %></p>
+        <button onClick="location.href='/themes/<%= theme.id %>/newPhoto'">Add photo to theme</button>
+        <div class="photos-container">
+            <% photos.forEach((photo) => { %>
+                <%- include("displayPhoto", {theme: theme, photo: photo}) %>
+            <% }) %>
+        </div>
     </div>
+
 
 </body>
 </html>
