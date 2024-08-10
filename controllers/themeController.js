@@ -5,9 +5,15 @@ async function getThemes(req, res) {
     res.render("themes", {themes: themes});
 }
 
+async function getUpdateTheme(req, res) {
+    const theme_id = req.params.theme_id;
+    const theme = await db.getTheme(theme_id);
+    res.render("updateTheme", {theme: theme});
+}
+
 async function createTheme(req, res) {
     const body = req.body;
-    console.log(`body is ${JSON.stringify(body)}`);
+    console.log(`create theme body is ${JSON.stringify(body)}`);
     const themeObject = {
         title: body.title,
         description: body.description,
@@ -27,10 +33,16 @@ async function createTheme(req, res) {
 }
 
 async function updateTheme(req, res) {
+    console.log(`update theme with ${JSON.stringify(req.body)}`)
     const theme_id = req.params.theme_id;
-    const themeObj = req.params.theme;
-    await db.updateTheme(theme_id, themeObj);
-    res.redirect('/');
+    const body = req.body;
+    const updateReq = {
+        id: theme_id,
+        title: body.title,
+        description: body.description
+    };
+    await db.updateTheme(updateReq);
+    res.redirect(`/themes/${theme_id}`);
 }
 
 async function deleteTheme(req, res) {
@@ -43,6 +55,7 @@ async function deleteTheme(req, res) {
 
 module.exports = {
     getThemes,
+    getUpdateTheme,
     createTheme,
     updateTheme,
     deleteTheme

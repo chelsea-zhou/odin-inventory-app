@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/themes/<%= theme.id %>/update" method="POST">
+        <label>theme title</label>
+        <input type="text" name="title" value="<%=theme.title%>">
+
+        <label>theme description</label>
+        <input type="text" name="description" value="<%=theme.description%>">
+
+        <input type="submit">
+    </form>
+</body>
+</html>

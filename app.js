@@ -17,13 +17,17 @@ app.get("/themes/new", (req, res) => {
 });
 app.post("/themes/new", themeController.createTheme);
 
-app.put("/themes/:theme_id", themeController.updateTheme);
+app.get("/themes/:theme_id/update", themeController.getUpdateTheme);
+
+app.post("/themes/:theme_id/update", themeController.updateTheme);
 
 app.get("/themes/:theme_id/delete", themeController.deleteTheme);
 
 app.get("/themes/:theme_id", photoController.getPhotos);
 
 app.get("/themes/:theme_id/photos/:photo_id", photoController.getPhoto);
+
+app.get("/themes/:theme_id/photos/:photo_id/update", photoController.getUpdatePhoto);
 
 app.get("/themes/:theme_id/photos/:photo_id/delete", photoController.deletePhoto);
 
@@ -32,7 +36,8 @@ app.get("/themes/:theme_id/newPhoto", (req, res) => {
 });
 app.post("/themes/:theme_id/newPhoto", photoController.addPhoto);
 
-app.put("/themes/:theme_id/photos/:photo_id", photoController.updatePhoto);
+// this is post not put because html <form> can only do post
+app.post("/themes/:theme_id/photos/:photo_id/update", photoController.updatePhoto);
 
 
 app.listen(3000);

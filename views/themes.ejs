@@ -8,9 +8,9 @@
 </head>
 <body>
 
-    <div>
-        <p> Memory Gallery</p>
-        <button onClick="location.href='/themes/new'"> add new theme </button>
+    <div class="homepage">
+        <p class="heading"> Memory Gallery</p>
+        <button  class="add-new-theme" onClick="location.href='/themes/new'"> Add new theme </button>
         <div class="themes">
             <%  themes.forEach((theme) => { %>
                 <%- include('theme', {theme: theme}) %>

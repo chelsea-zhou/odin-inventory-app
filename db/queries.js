@@ -24,10 +24,17 @@ async function createTheme(req) {
     }
 }
 
-async function updateTheme(id, theme) {
-    const sql = `UPDATE themes
-        SET title = ${theme.title}, description = ${theme.description}, cover_image = ${theme.cover_image}
-        WHERE id = ${id};`
+async function updateTheme(req) {
+    try {
+        const sql = `
+            UPDATE themes
+            SET title = $1, description = $2
+            WHERE id = $3
+        `
+        await pool.query(sql, [req.title, req.description, req.id]);
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 async function deleteTheme(id) {
@@ -36,7 +43,6 @@ async function deleteTheme(id) {
 }
 
 async function getPhotos(theme_id) {
-    console.log(theme_id)
     const sqlStatement = `SELECT * FROM photos WHERE theme_id = ${theme_id}`;
     const {rows} = await pool.query(sqlStatement);
     return rows;
@@ -53,7 +59,8 @@ async function getPhoto(id) {
 async function addPhoto(obj) {
     const sql = `
     INSERT INTO photos (title, description, image, date, location, theme_id) 
-    VALUES ($1, $2, $3, $4, $5, $6)`;
+    WHERE 
+    `;
     await pool.query(sql, [
         obj.title, 
         obj.description, 
@@ -64,8 +71,19 @@ async function addPhoto(obj) {
     ]);
 }
 
-async function updatePhoto() {
-
+async function updatePhoto(obj) {
+    const sql = `
+    UPDATE photos 
+    SET title=$1, description=$2, image=$3, date=$4, location=$5 
+    WHERE id=$6`;
+    await pool.query(sql, [
+        obj.title, 
+        obj.description, 
+        obj.image, 
+        obj.date, 
+        obj.location,
+        obj.id
+    ]);
 }
 
 async function deletePhoto(deleteReq) {
